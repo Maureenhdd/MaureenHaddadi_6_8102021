@@ -1,0 +1,33 @@
+@import "../utils/mixins";
+.footer {
+  @include tablet {
+    text-align: center;
+  }
+  background-color: #353535;
+  color: white;
+  padding: 20px;
+  width: 100%;
+  &_title {
+    font-family: "Shrikhand", cursive;
+    font-size: 20px;
+  }
+
+  &_link {
+    display: flex;
+    flex-direction: column;
+    transition: 0.2s;
+
+    &__a {
+      text-decoration: none;
+      color: white;
+    }
+    &__a,
+    &__top {
+      margin-bottom: 10px;
+    }
+    &__i {
+      margin-right: 0.5rem;
+      width: 1.2rem;
+    }
+  }
+}

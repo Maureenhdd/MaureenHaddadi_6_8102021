@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les petits plats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="assets/style/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <img class="logo" src="assets/img/logo.svg" alt="le petits plats logo">
+    <div class="container">
+        <div class="row">
+            <section class="search_bar_section  ">
+
+                <input class="search_bar_section__input col-11 " type="search"
+                    placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette">
+                <div class="search_bar_section__i col-1">
+                    <i class="fas fa-search search--i"></i>
+                </div>
+            </section>
+            <section>
+                <div class="refined_search_tag">
+
+                </div>
+            </section>
+            <section class="refined_search col-8">
+
+                <div class="refined_search__content">
+                    <div>
+                        <div class="refined_search__top">
+                            <input class="refined_search__btn btn--primary" type="search" placeholder="Ingrédients">
+                            <div class="open_list btn--primary">
+                                <i class="fas fa-chevron-down open_list__i "></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <ul class="refined_search__list list--ingredients btn--primary">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="refined_search__top">
+                            <input class="refined_search__btn btn--secondary" type="search" placeholder="Appareil">
+                            <div class="open_list btn--secondary">
+                                <i class="fas fa-chevron-down open_list__i "></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <ul class="refined_search__list list--appliances btn--secondary">
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="refined_search__top">
+                            <input class="refined_search__btn
+    btn--tertiary" type="search" placeholder="Ustensils">
+                            <div class="open_list btn--tertiary">
+                                <i class="fas fa-chevron-down open_list__i "></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <ul class="refined_search__list list--ustensils btn--tertiary">
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </section>
+            <section class="card_list_section">
+
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src="assets/script/templates.js"></script>
+    <script src="assets/script/main.js"></script>
+
+</body>
+
+</html>

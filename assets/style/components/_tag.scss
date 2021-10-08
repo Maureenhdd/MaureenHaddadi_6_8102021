@@ -1,0 +1,14 @@
+.refined_search_tag {
+  display: flex;
+
+  &__content {
+    background-color: #47597e;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+}
+
+.remove-tag {
+  cursor: pointer;
+}
