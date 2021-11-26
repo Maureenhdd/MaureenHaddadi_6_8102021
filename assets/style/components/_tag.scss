@@ -12,3 +12,16 @@
 .remove-tag {
   cursor: pointer;
 }
+
+.tag {
+  &__ingredients {
+    background-color: $primary-color;
+  }
+  &__appliances {
+    background-color: $secondary-color;
+  }
+
+  &__ustensils {
+    background-color: $tertiary-color;
+  }
+}
