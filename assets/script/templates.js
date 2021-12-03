@@ -21,7 +21,6 @@ function createCardRecipe(e) {
             <p class="card-text">${e.description}</p>
             <p>${e.appliance}</p>
         </div>
-
     </div>
 </div>
     
@@ -29,14 +28,14 @@ function createCardRecipe(e) {
 }
 
 
-function createList(e) {
+function createList(e, i) {
     return `
-        <li class="refined_search__li">${e}</li>
+        <li class="refined_search__li"  data-list=${i} data-key='${e}'>${e}</li>
     `
 }
 
-function createTag(e) {
+function createTag(e, type) {
     return `
-        <div class="refined_search_tag__content">${e} <i class="far fa-times-circle remove-tag"></i> </div>
+        <div class="refined_search_tag__content tag__${type}" data-type='${type}' data-key='${e}'>${e} <i class="far fa-times-circle remove-tag"></i> </div>
     `
 }

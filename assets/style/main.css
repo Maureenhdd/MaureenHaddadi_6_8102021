@@ -342,7 +342,6 @@ ul {
 }
 
 .refined_search_tag__content {
-  background-color: #47597e;
   color: white;
   padding: 10px;
   border-radius: 10px;
@@ -350,5 +349,17 @@ ul {
 
 .remove-tag {
   cursor: pointer;
+}
+
+.tag__ingredients {
+  background-color: #3282f7;
+}
+
+.tag__appliances {
+  background-color: #68d9a4;
+}
+
+.tag__ustensils {
+  background-color: #ed6454;
 }
 /*# sourceMappingURL=main.css.map */

@@ -2,7 +2,6 @@
   display: flex;
 
   &__content {
-    background-color: #47597e;
     color: white;
     padding: 10px;
     border-radius: 10px;
@@ -11,4 +10,17 @@
 
 .remove-tag {
   cursor: pointer;
+}
+
+.tag {
+  &__ingredients {
+    background-color: $primary-color;
+  }
+  &__appliances {
+    background-color: $secondary-color;
+  }
+
+  &__ustensils {
+    background-color: $tertiary-color;
+  }
 }
