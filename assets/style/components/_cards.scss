@@ -40,12 +40,14 @@
 .card {
   margin: 10px 5px;
   border-radius: 5px;
+  width: 380px;
   &-text {
-    width: 50%;
-    white-space: nowrap;
+    width: 45%;
+    height: 110px;
     overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
   }
   &-body {
     padding: 10px;
@@ -55,5 +57,5 @@ li {
   list-style: none;
 }
 ul {
-  padding: 0;
+  padding: 0 20px 0 0;
 }
