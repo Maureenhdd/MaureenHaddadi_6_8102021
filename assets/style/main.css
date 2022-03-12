@@ -313,14 +313,16 @@
 .card {
   margin: 10px 5px;
   border-radius: 5px;
+  width: 380px;
 }
 
 .card-text {
-  width: 50%;
-  white-space: nowrap;
+  width: 45%;
+  height: 110px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
 }
 
 .card-body {
@@ -332,7 +334,7 @@ li {
 }
 
 ul {
-  padding: 0;
+  padding: 0 20px 0 0;
 }
 
 .refined_search_tag {
@@ -342,10 +344,10 @@ ul {
 }
 
 .refined_search_tag__content {
-  background-color: #47597e;
   color: white;
   padding: 10px;
   border-radius: 10px;
+  margin: 20px 0 10px 0;
 }
 
 .remove-tag {

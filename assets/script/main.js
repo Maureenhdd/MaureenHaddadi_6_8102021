@@ -6,7 +6,6 @@ const openList = document.querySelectorAll('.refined_search__btn')
 const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
-
 function searchFilter(userQuery, recipes) {
     console.log(recipes)
     const result = recipes.filter(recipe => {
@@ -41,6 +40,7 @@ function searchFilter(userQuery, recipes) {
     displayRecipes(result)
 
 }
+
 
 function filterByTags(recipes, arraySelectedTag) {
     const result = recipes.filter(recipe => {
@@ -224,7 +224,6 @@ openList.forEach(item => {
         listSection.classList.toggle('active_list')
         openListI.classList.toggle('opened_list')
     })
-
 })
 
 
@@ -265,6 +264,7 @@ function getData() {
 
 getData().then(({ recipes }) => {
     let isSearch = false
+
     displayRecipes(recipes)
     const arrayIngredients = extractIngredients(recipes)
     const arrayAppliances = extractAppliances(recipes)
@@ -280,6 +280,7 @@ getData().then(({ recipes }) => {
     filterByItems(arrayIngredients, recipes, 'ingredients')
     filterByItems(arrayUstensils, recipes, 'ustensils')
     filterByItems(arrayAppliances, recipes, 'appliances')
+
 
     userSearch.addEventListener('input', function (e) {
         if (e.target.value.length < 3) {
