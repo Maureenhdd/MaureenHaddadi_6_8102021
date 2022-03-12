@@ -6,6 +6,38 @@ const openList = document.querySelectorAll('.refined_search__btn')
 const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
+function searchFilter(userQuery, recipes) {
+
+    let result = recipes[userQuery]
+    if (userQuery.includes(' ')) {
+        result = []
+        let arrayTmp = userQuery.split(' ')
+        arrayTmp.forEach(w => {
+            if (recipes[w] === undefined) {
+                return
+            } else {
+                // result = result.concat(recipes[w])
+                if (result.length == 0) {
+                    result = recipes[w]
+                } else {
+                    result = result.filter(recipe => recipes[w].find(r => r.id == recipe.id))
+
+                }
+            }
+        })
+
+
+    }
+
+
+    if (!result || result.length == 0) {
+        return cardList.innerHTML = `
+        <div class="card_list_section--no_result">Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.</div>
+        `
+    }
+    displayRecipes(result)
+
+}
 
 
 function filterByTags(recipes, arraySelectedTag) {
@@ -151,8 +183,6 @@ function normalizeArray(array) {
         let normalI = i.endsWith('s') ? i.substring(0, i.length - 1) : i
         normalI = normalI.toLowerCase()
         normalI = normalI.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-        // normalI = normalI.replace(/[&/\\#,+()$~%.":*?<>{}]/g, "")
-
         if (arrayNormal.includes(normalI)) {
             return null
         } else {
@@ -209,6 +239,7 @@ function getData() {
 
 
 getData().then(({ recipes }) => {
+    let isSearch = false
     displayRecipes(recipes)
     const arrayIngredients = extractIngredients(recipes)
     const arrayAppliances = extractAppliances(recipes)
@@ -225,5 +256,51 @@ getData().then(({ recipes }) => {
     filterByItems(arrayUstensils, recipes, 'ustensils')
     filterByItems(arrayAppliances, recipes, 'appliances')
 
+    let result = {}
+
+    let arr_for_test = [];
+    recipes.map(recipe => {
+        arr_for_test.push(recipe.name.split(' ').map(word => word.toLowerCase()))
+        arr_for_test.push(recipe.ingredients.map(word => word.ingredient.toLowerCase()))
+        arr_for_test.push(recipe.description.split(' ').map(word => word.toLowerCase()))
+    })
+
+    normalizeArray(arr_for_test.flat()).forEach(item => {
+        recipes.map(recipe => {
+            const arrayKeysName = recipe.name.split(' ').map(word => word.toLowerCase())
+            const arrayKeysIngredients = recipe.ingredients.map(word => word.ingredient.toLowerCase())
+            const arrayKeysDescription = recipe.description.split(' ').map(word => word.toLowerCase())
+            let arrayKeys = arrayKeysName.concat(arrayKeysIngredients).concat(arrayKeysDescription)
+
+            if (arrayKeys.includes(item)) {
+                if (item.length < 3) {
+                    return
+                }
+                item = item.replace(/[&/\\#,+()$~%.":*?<>{}]/g, "")
+                if (result[item]) {
+                    if (result[item].find(item => item.id === recipe.id)) {
+                        return
+                    }
+                    result[item].push(recipe)
+                } else {
+                    result[item] = [recipe]
+                }
+            }
+
+        })
+    })
+
+    userSearch.addEventListener('input', function (e) {
+        if (e.target.value.length < 3) {
+            if (isSearch) {
+
+                displayRecipes(recipes)
+                isSearch = false
+            }
+        } else {
+            searchFilter(e.target.value, result)
+            isSearch = true
+        }
+    })
 })
 
