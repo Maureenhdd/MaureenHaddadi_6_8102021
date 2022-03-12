@@ -7,74 +7,36 @@ const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
 
-// function searchFilter(userQuery, recipes) {
-//     console.log(recipes)
-//     const result = recipes.filter(recipe => {
-//         if (userQuery.includes(' ')) {
-//             userQuerySplit = userQuery.split(' ')
-//             resultSplit = recipe.name.split(' ')
-//             for (let i = 0; i < userQuerySplit.length; i++) {
-//                 if (userQuerySplit[i].length < 3) {
-//                     continue
-//                 }
-//                 for (let j = 0; j < resultSplit.length; j++) {
-
-//                     if (userQuerySplit[i].toLowerCase() === resultSplit[j].toLowerCase()) {
-//                         return true;
-//                     }
-//                 }
-//             }
-//         } else {
-//             return recipe.name.toLowerCase().includes(userQuery.toLowerCase()) || recipe.description.toLowerCase().includes(userQuery.toLowerCase()) || recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(userQuery.toLowerCase()))
-//         }
-
-
-//         cardList.innerHTML = ''
-
-//     })
-//     if (!result.length) {
-//         return cardList.innerHTML = `
-//         <div class="card_list_section--no_result">Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.</div>
-//         `
-//     }
-
-//     displayRecipes(result)
-
-// }
-
 function searchFilter(userQuery, recipes) {
+    console.log(recipes)
+    const result = recipes.filter(recipe => {
+        if (userQuery.includes(' ')) {
+            userQuerySplit = userQuery.split(' ')
+            resultSplit = recipe.name.split(' ')
+            for (let i = 0; i < userQuerySplit.length; i++) {
+                if (userQuerySplit[i].length < 3) {
+                    continue
+                }
+                for (let j = 0; j < resultSplit.length; j++) {
 
-    let result = recipes[userQuery]
-    if (userQuery.includes(' ')) {
-        result = []
-        let arrayTmp = userQuery.split(' ')
-        arrayTmp.forEach(w => {
-            console.log(recipes[w], w)
-
-            if (recipes[w] === undefined) {
-                return
-            } else {
-                // result = result.concat(recipes[w])
-                if (result.length == 0) {
-                    result = recipes[w]
-                } else {
-                    result = result.filter(recipe => recipes[w].find(r => r.id == recipe.id))
-
+                    if (userQuerySplit[i].toLowerCase() === resultSplit[j].toLowerCase()) {
+                        return true;
+                    }
                 }
             }
-        })
+        } else {
+            return recipe.name.toLowerCase().includes(userQuery.toLowerCase()) || recipe.description.toLowerCase().includes(userQuery.toLowerCase()) || recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(userQuery.toLowerCase()))
+        }
 
 
-    }
+        cardList.innerHTML = ''
 
-
-    if (!result || result.length == 0) {
+    })
+    if (!result.length) {
         return cardList.innerHTML = `
         <div class="card_list_section--no_result">Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.</div>
         `
     }
-
-    console.log(result)
 
     displayRecipes(result)
 
@@ -154,8 +116,6 @@ function displayTags(arrayItem, recipes) {
     })
 
 }
-
-
 
 function pushItem(recipes) {
     const tag = document.querySelectorAll('.refined_search_tag__content')
@@ -248,11 +208,23 @@ function normalizeArray(array) {
 openList.forEach(item => {
     const listSection = item.parentNode.parentNode.querySelector('.refined_search__list')
     const openListI = item.parentNode.parentNode.querySelector('.open_list__i')
-    console.log(listSection)
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (event) => {
+        const activeList = document.querySelector('.active_list')
+        const openedList = document.querySelector('.opened_list')
+        const isSelfActive = item.parentElement.querySelector('.opened_list')
+
+        if (activeList && openedList) {
+            activeList.classList.remove('active_list')
+            openedList.classList.remove('opened_list')
+            if (isSelfActive) {
+                return
+            }
+        }
+
         listSection.classList.toggle('active_list')
         openListI.classList.toggle('opened_list')
     })
+
 })
 
 
@@ -309,43 +281,6 @@ getData().then(({ recipes }) => {
     filterByItems(arrayUstensils, recipes, 'ustensils')
     filterByItems(arrayAppliances, recipes, 'appliances')
 
-    let result = {}
-
-    let arr_for_test = [];
-    recipes.map(recipe => {
-        arr_for_test.push(recipe.name.split(' ').map(word => word.toLowerCase()))
-        arr_for_test.push(recipe.ingredients.map(word => word.ingredient.toLowerCase()))
-        arr_for_test.push(recipe.description.split(' ').map(word => word.toLowerCase()))
-    })
-
-    normalizeArray(arr_for_test.flat()).forEach(item => {
-        recipes.map(recipe => {
-            const arrayKeysName = recipe.name.split(' ').map(word => word.toLowerCase())
-            const arrayKeysIngredients = recipe.ingredients.map(word => word.ingredient.toLowerCase())
-            const arrayKeysDescription = recipe.description.split(' ').map(word => word.toLowerCase())
-            let arrayKeys = arrayKeysName.concat(arrayKeysIngredients).concat(arrayKeysDescription)
-
-            if (arrayKeys.includes(item)) {
-                if (item.length < 3) {
-                    return
-                }
-                item = item.replace(/[&/\\#,+()$~%.":*?<>{}]/g, "")
-                if (result[item]) {
-                    if (result[item].find(item => item.id === recipe.id)) {
-                        return
-                    }
-                    result[item].push(recipe)
-                } else {
-                    result[item] = [recipe]
-                }
-            }
-
-        })
-    })
-
-    console.log(result)
-
-
     userSearch.addEventListener('input', function (e) {
         if (e.target.value.length < 3) {
             if (isSearch) {
@@ -354,7 +289,7 @@ getData().then(({ recipes }) => {
                 isSearch = false
             }
         } else {
-            searchFilter(e.target.value, result)
+            searchFilter(e.target.value, recipes)
             isSearch = true
         }
     })
