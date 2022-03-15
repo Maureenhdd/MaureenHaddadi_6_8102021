@@ -1,6 +1,6 @@
 function createCardRecipe(e) {
     return `
-    <div class="card " style="width: 25rem;">
+    <div class="card ">
     <img src="#" class="card-img-top" alt="...">
     <div class="card-body">
         <div class="card-body-top">
@@ -14,13 +14,12 @@ function createCardRecipe(e) {
         <ul>
         ${e.ingredients.map(ingredient => {
         return `
-        <li> ${ingredient.ingredient} : ${ingredient.quantity || ''} ${ingredient.unit || ''}</li>
+        <li> <strong> ${ingredient.ingredient}</strong> : ${ingredient.quantity || ''} ${ingredient.unit || ''}</li>
         `
     }).join('')}
             </ul>
             <p class="card-text">${e.description}</p>
         </div>
-
     </div>
 </div>
     
