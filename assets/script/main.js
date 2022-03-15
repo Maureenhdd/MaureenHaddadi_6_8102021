@@ -227,7 +227,6 @@ openList.forEach(item => {
         listSection.classList.toggle('active_list')
         openListI.classList.toggle('opened_list')
     })
-
 })
 
 
