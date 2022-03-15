@@ -7,7 +7,6 @@ const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
 //search function with the input
-
 function searchFilter(userQuery, recipes) {
     console.log(recipes)
     const result = recipes.filter(recipe => {
