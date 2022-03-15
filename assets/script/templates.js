@@ -19,7 +19,6 @@ function createCardRecipe(e) {
     }).join('')}
             </ul>
             <p class="card-text">${e.description}</p>
-            <p>${e.appliance}</p>
         </div>
 
     </div>

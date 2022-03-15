@@ -6,6 +6,7 @@ const openList = document.querySelectorAll('.refined_search__btn')
 const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
+//search function with the input
 
 function searchFilter(userQuery, recipes) {
     console.log(recipes)
@@ -42,6 +43,8 @@ function searchFilter(userQuery, recipes) {
 
 }
 
+//search function with tags 
+
 function filterByTags(recipes, arraySelectedTag) {
     const result = recipes.filter(recipe => {
         // ananas , ail
@@ -56,16 +59,6 @@ function filterByTags(recipes, arraySelectedTag) {
             }
         }
         return bool.includes(false) ? false : true
-
-        // {true, false}
-        // console.log(recipe.ingredients.map(ingredient => ingredient.ingredient))
-        // console.log(tagSelected.text)
-        // console.log(recipe.ingredients.ingredient.includes(tagSelected.type))
-        // console.log(recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase()).includes(tagSelected.text))
-        // const result = arrayAppliances.includes(recipe.appliance)
-        // || recipe.ustensils.some((ust) => ust.toLowerCase().includes(tagSelected))
-        // console.log(result, arrayAppliances)
-        // return result
     })
     displayRecipes(result)
 }
@@ -86,6 +79,7 @@ function filterByItems(arrayItems, recipes, type) {
     })
 }
 
+// check if tag exists in array to not let user clicks on item in list 
 
 function isTagInArray(arrayItem) {
     const li = document.querySelectorAll('.refined_search__li')
@@ -98,12 +92,13 @@ function isTagInArray(arrayItem) {
 
 
 
+//display tag when user click on item in list 
 
 function displayTags(arrayItem, recipes) {
     tagSection.innerHTML = ''
     arrayItem.map(item => tagSection.innerHTML += createTag(item.text, item.type))
     const removeTag = document.querySelectorAll('.remove-tag')
-
+    //remove tag on click 
     removeTag.forEach(i => {
         i.addEventListener('click', () => {
             const index = arrayItem.indexOf(i);
@@ -116,6 +111,7 @@ function displayTags(arrayItem, recipes) {
     })
 
 }
+// push item on array on click 
 
 function pushItem(recipes) {
     const tag = document.querySelectorAll('.refined_search_tag__content')
@@ -123,7 +119,7 @@ function pushItem(recipes) {
 
     const refinedTags = document.querySelector('.refined_search_tag')
     let arrayItem = []
-    Array.from(refinedTags.children).forEach(e => {
+    refinedTags.forEach(e => {
         arrayItem.push({ text: e.getAttribute('data-key'), type: e.getAttribute('data-type') })
     })
 
@@ -148,6 +144,7 @@ function pushItem(recipes) {
 }
 
 
+// get ingredients 
 
 function extractIngredients(recipes) {
     let arrayIngredients = []
@@ -161,6 +158,7 @@ function extractIngredients(recipes) {
 }
 
 
+// get appliances
 
 function extractAppliances(recipes) {
     let arrayAppliances = []
@@ -172,6 +170,7 @@ function extractAppliances(recipes) {
 }
 
 
+// get ustensils 
 
 function extractUstensils(recipes) {
     let arrayUstensils = []
@@ -185,6 +184,8 @@ function extractUstensils(recipes) {
     return arrayUstensils
 
 }
+
+//Normalize data 
 
 function normalizeArray(array) {
     array = [...new Set(array)].sort()
@@ -204,6 +205,9 @@ function normalizeArray(array) {
     }).filter(el => el !== null)
     return array
 }
+
+
+//open list 
 
 openList.forEach(item => {
     const listSection = item.parentNode.parentNode.querySelector('.refined_search__list')
@@ -228,7 +232,7 @@ openList.forEach(item => {
 })
 
 
-// display item 
+// display recipes  
 
 function displayRecipes(recipes) {
     cardList.innerHTML = ' '
