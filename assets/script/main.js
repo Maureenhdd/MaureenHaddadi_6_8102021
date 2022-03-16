@@ -97,6 +97,7 @@ function displayTags(arrayItem, recipes) {
     tagSection.innerHTML = ''
     arrayItem.map(item => tagSection.innerHTML += createTag(item.text, item.type))
     const removeTag = document.querySelectorAll('.remove-tag')
+
     //remove tag on click 
     removeTag.forEach(i => {
         i.addEventListener('click', () => {
