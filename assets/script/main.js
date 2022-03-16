@@ -193,10 +193,24 @@ function normalizeArray(array) {
     return array
 }
 
+//open list 
+
 openList.forEach(item => {
     const listSection = item.parentNode.parentNode.querySelector('.refined_search__list')
     const openListI = item.parentNode.parentNode.querySelector('.open_list__i')
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (event) => {
+        const activeList = document.querySelector('.active_list')
+        const openedList = document.querySelector('.opened_list')
+        const isSelfActive = item.parentElement.querySelector('.opened_list')
+
+        if (activeList && openedList) {
+            activeList.classList.remove('active_list')
+            openedList.classList.remove('opened_list')
+            if (isSelfActive) {
+                return
+            }
+        }
+
         listSection.classList.toggle('active_list')
         openListI.classList.toggle('opened_list')
     })
