@@ -172,6 +172,8 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .refined_search__btn {
@@ -201,6 +203,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 20px 0;
 }
 
 .refined_search__list {
@@ -347,7 +350,7 @@ ul {
   color: white;
   padding: 10px;
   border-radius: 10px;
-  margin: 20px 0 10px 0;
+  margin: 20px 10px;
 }
 
 .remove-tag {

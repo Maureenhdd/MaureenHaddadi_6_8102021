@@ -110,6 +110,7 @@ function displayTags(arrayItem, recipes) {
     })
 
 }
+
 // push item on array on click 
 
 function pushItem(recipes) {
@@ -118,7 +119,7 @@ function pushItem(recipes) {
 
     const refinedTags = document.querySelector('.refined_search_tag')
     let arrayItem = []
-    refinedTags.forEach(e => {
+    Array.from(refinedTags.children).forEach(e => {
         arrayItem.push({ text: e.getAttribute('data-key'), type: e.getAttribute('data-type') })
     })
 

@@ -3,6 +3,7 @@
   &__content {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
   &__btn {
     padding: 30px;
@@ -15,6 +16,7 @@
   }
   &__top {
     display: flex;
+    margin: 20px 0;
   }
 
   &__list {
