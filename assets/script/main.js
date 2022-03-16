@@ -6,7 +6,43 @@ const openList = document.querySelectorAll('.refined_search__btn')
 const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
+//search function with the input
+function searchFilter(userQuery, recipes) {
+    console.log(recipes)
+    const result = recipes.filter(recipe => {
+        if (userQuery.includes(' ')) {
+            userQuerySplit = userQuery.split(' ')
+            resultSplit = recipe.name.split(' ')
+            for (let i = 0; i < userQuerySplit.length; i++) {
+                if (userQuerySplit[i].length < 3) {
+                    continue
+                }
+                for (let j = 0; j < resultSplit.length; j++) {
 
+                    if (userQuerySplit[i].toLowerCase() === resultSplit[j].toLowerCase()) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            return recipe.name.toLowerCase().includes(userQuery.toLowerCase()) || recipe.description.toLowerCase().includes(userQuery.toLowerCase()) || recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(userQuery.toLowerCase()))
+        }
+
+
+        cardList.innerHTML = ''
+
+    })
+    if (!result.length) {
+        return cardList.innerHTML = `
+        <div class="card_list_section--no_result">Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.</div>
+        `
+    }
+
+    displayRecipes(result)
+
+}
+
+//search function with tags 
 
 function filterByTags(recipes, arraySelectedTag) {
     const result = recipes.filter(recipe => {
@@ -42,6 +78,7 @@ function filterByItems(arrayItems, recipes, type) {
     })
 }
 
+// check if tag exists in array to not let user clicks on item in list 
 
 function isTagInArray(arrayItem) {
     const li = document.querySelectorAll('.refined_search__li')
@@ -54,12 +91,14 @@ function isTagInArray(arrayItem) {
 
 
 
+//display tag when user click on item in list 
 
 function displayTags(arrayItem, recipes) {
     tagSection.innerHTML = ''
     arrayItem.map(item => tagSection.innerHTML += createTag(item.text, item.type))
     const removeTag = document.querySelectorAll('.remove-tag')
 
+    //remove tag on click 
     removeTag.forEach(i => {
         i.addEventListener('click', () => {
             const index = arrayItem.indexOf(i);
@@ -73,7 +112,7 @@ function displayTags(arrayItem, recipes) {
 
 }
 
-
+// push item on array on click 
 
 function pushItem(recipes) {
     const tag = document.querySelectorAll('.refined_search_tag__content')
@@ -106,6 +145,7 @@ function pushItem(recipes) {
 }
 
 
+// get ingredients 
 
 function extractIngredients(recipes) {
     let arrayIngredients = []
@@ -119,6 +159,7 @@ function extractIngredients(recipes) {
 }
 
 
+// get appliances
 
 function extractAppliances(recipes) {
     let arrayAppliances = []
@@ -130,6 +171,7 @@ function extractAppliances(recipes) {
 }
 
 
+// get ustensils 
 
 function extractUstensils(recipes) {
     let arrayUstensils = []
@@ -143,6 +185,8 @@ function extractUstensils(recipes) {
     return arrayUstensils
 
 }
+
+//Normalize data 
 
 function normalizeArray(array) {
     array = [...new Set(array)].sort()
@@ -163,17 +207,32 @@ function normalizeArray(array) {
     return array
 }
 
+
+//open list 
+
 openList.forEach(item => {
     const listSection = item.parentNode.parentNode.querySelector('.refined_search__list')
     const openListI = item.parentNode.parentNode.querySelector('.open_list__i')
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (event) => {
+        const activeList = document.querySelector('.active_list')
+        const openedList = document.querySelector('.opened_list')
+        const isSelfActive = item.parentElement.querySelector('.opened_list')
+
+        if (activeList && openedList) {
+            activeList.classList.remove('active_list')
+            openedList.classList.remove('opened_list')
+            if (isSelfActive) {
+                return
+            }
+        }
+
         listSection.classList.toggle('active_list')
         openListI.classList.toggle('opened_list')
     })
 })
 
 
-// display item 
+// display recipes  
 
 function displayRecipes(recipes) {
     cardList.innerHTML = ' '
@@ -209,6 +268,7 @@ function getData() {
 
 
 getData().then(({ recipes }) => {
+    let isSearch = false
     displayRecipes(recipes)
     const arrayIngredients = extractIngredients(recipes)
     const arrayAppliances = extractAppliances(recipes)
@@ -225,5 +285,17 @@ getData().then(({ recipes }) => {
     filterByItems(arrayUstensils, recipes, 'ustensils')
     filterByItems(arrayAppliances, recipes, 'appliances')
 
+    userSearch.addEventListener('input', function (e) {
+        if (e.target.value.length < 3) {
+            if (isSearch) {
+
+                displayRecipes(recipes)
+                isSearch = false
+            }
+        } else {
+            searchFilter(e.target.value, recipes)
+            isSearch = true
+        }
+    })
 })
 
