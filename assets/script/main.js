@@ -89,12 +89,13 @@ function isTagInArray(arrayItem) {
 
 function displayTags(arrayItem, recipes) {
     tagSection.innerHTML = ''
+    // console.log("====", arrayItem);
     arrayItem.map(item => tagSection.innerHTML += createTag(item.text, item.type))
     const removeTag = document.querySelectorAll('.remove-tag')
+    // console.log("====", removeTag);
 
-    removeTag.forEach(i => {
+    removeTag.forEach((i, index) => {
         i.addEventListener('click', () => {
-            const index = arrayItem.indexOf(i);
             arrayItem.splice(index, 1);
             displayTags(arrayItem, recipes)
             filterByTags(recipes, arrayItem)
@@ -215,7 +216,6 @@ openList.forEach(item => {
         openListI.classList.toggle('opened_list')
     })
 })
-
 
 // display item 
 
