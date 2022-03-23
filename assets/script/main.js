@@ -6,6 +6,7 @@ const openList = document.querySelectorAll('.refined_search__btn')
 const userSearch = document.querySelector('.search_bar_section__input')
 const tagSection = document.querySelector('.refined_search_tag')
 
+// search input filter 
 function searchFilter(userQuery, recipes) {
 
     let result = recipes[userQuery]
@@ -39,7 +40,7 @@ function searchFilter(userQuery, recipes) {
 
 }
 
-
+// search filter by tag on click  
 function filterByTags(recipes, arraySelectedTag) {
     const result = recipes.filter(recipe => {
         // ananas , ail
@@ -59,7 +60,7 @@ function filterByTags(recipes, arraySelectedTag) {
 }
 
 
-// filter by items
+// filter tag with input
 
 function filterByItems(arrayItems, recipes, type) {
     const inputItem = document.querySelector(`.refined_search--${type}`)
@@ -74,6 +75,7 @@ function filterByItems(arrayItems, recipes, type) {
     })
 }
 
+// diasble click on list 
 
 function isTagInArray(arrayItem) {
     const li = document.querySelectorAll('.refined_search__li')
@@ -85,7 +87,7 @@ function isTagInArray(arrayItem) {
 }
 
 
-
+//display tag 
 
 function displayTags(arrayItem, recipes) {
     tagSection.innerHTML = ''
@@ -139,7 +141,7 @@ function pushItem(recipes) {
 }
 
 
-
+// get ingredients 
 function extractIngredients(recipes) {
     let arrayIngredients = []
     recipes.map(recipe => {
@@ -152,7 +154,7 @@ function extractIngredients(recipes) {
 }
 
 
-
+// get appliances 
 function extractAppliances(recipes) {
     let arrayAppliances = []
     recipes.map(appliance => {
@@ -163,7 +165,7 @@ function extractAppliances(recipes) {
 }
 
 
-
+// get ustensils 
 function extractUstensils(recipes) {
     let arrayUstensils = []
     recipes.map(recipe => {
@@ -177,6 +179,7 @@ function extractUstensils(recipes) {
 
 }
 
+// func to remove doublon in array 
 function normalizeArray(array) {
     array = [...new Set(array)].sort()
     let arrayNormal = []
@@ -269,6 +272,7 @@ getData().then(({ recipes }) => {
     filterByItems(arrayIngredients, recipes, 'ingredients')
     filterByItems(arrayUstensils, recipes, 'ustensils')
     filterByItems(arrayAppliances, recipes, 'appliances')
+
 
     let result = {}
 
