@@ -10,7 +10,6 @@ const tagSection = document.querySelector('.refined_search_tag')
 
 function filterByTags(recipes, arraySelectedTag) {
     const result = recipes.filter(recipe => {
-        // ananas , ail
         let bool = []
         for (let tagSelected of arraySelectedTag) {
             if (tagSelected.type === "ingredients") {
@@ -57,11 +56,8 @@ function isTagInArray(arrayItem) {
 
 function displayTags(arrayItem, recipes) {
     tagSection.innerHTML = ''
-    // console.log("====", arrayItem);
     arrayItem.map(item => tagSection.innerHTML += createTag(item.text, item.type))
     const removeTag = document.querySelectorAll('.remove-tag')
-    // console.log("====", removeTag);
-
     removeTag.forEach((i, index) => {
         i.addEventListener('click', () => {
             arrayItem.splice(index, 1);
