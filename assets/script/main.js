@@ -17,7 +17,6 @@ function searchFilter(userQuery, recipes) {
             if (recipes[w] === undefined) {
                 return
             } else {
-                // result = result.concat(recipes[w])
                 if (result.length == 0) {
                     result = recipes[w]
                 } else {
@@ -55,6 +54,7 @@ function filterByTags(recipes, arraySelectedTag) {
             }
         }
         return bool.includes(false) ? false : true
+
     })
     displayRecipes(result)
 }
@@ -111,7 +111,6 @@ function displayTags(arrayItem, recipes) {
 
 
 function pushItem(recipes) {
-    const tag = document.querySelectorAll('.refined_search_tag__content')
     const li = document.querySelectorAll('.refined_search__li')
 
     const refinedTags = document.querySelector('.refined_search_tag')
@@ -126,11 +125,6 @@ function pushItem(recipes) {
         i.addEventListener('click', function () {
             let valueLi = i.innerHTML
             arrayItem.push({ text: valueLi, type: themeList })
-
-            themeList === "ingredients" ? tag.forEach(t => {
-                t.classList.add('refined_search_tag__content__ingredients')
-            }) : null
-
             displayTags(arrayItem, recipes)
             filterByTags(recipes, arrayItem)
             isTagInArray(arrayItem)
@@ -227,6 +221,8 @@ function displayRecipes(recipes) {
     recipes.map(e => cardList.innerHTML += createCardRecipe(e))
 }
 
+//display list
+
 function displaySelectedTags(arraySelectedTags, type) {
     const list = document.querySelector(`.list--${type}`)
     list.innerHTML = ''
@@ -234,8 +230,8 @@ function displaySelectedTags(arraySelectedTags, type) {
 }
 
 
-const listAppliance = document.querySelector('.list--appliances')
-const listUstensils = document.querySelector('.list--ustensils')
+// const listAppliance = document.querySelector('.list--appliances')
+// const listUstensils = document.querySelector('.list--ustensils')
 
 
 function getData() {
@@ -308,6 +304,9 @@ getData().then(({ recipes }) => {
         })
     })
 
+    console.log(result)
+
+    // if user value under 3 display recipes else call function 
     userSearch.addEventListener('input', function (e) {
         if (e.target.value.length < 3) {
             if (isSearch) {
